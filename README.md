@@ -1,20 +1,11 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+xhours: tool for recording community service hours.
 
-### What is this repository for? ###
+### summary ###
 
-All functionalities is in js/app.js
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+All functionalities is in public/js/app.js
 
-### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+
 
