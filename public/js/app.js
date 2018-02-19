@@ -153,16 +153,13 @@
       submitHoursRequest.addEventListener('click', function(){
         console.log("what is going onn bro");
         let clientRef = database.ref().child('clients');
-        clientRef.orderByChild('email').equalTo('gov@dc.gov').on('child_added', snap =>{
-          var d = snap.key;
-          console.log(d);
-        });
+          clientRef.orderByChild('email').equalTo('gov@dc.gov').on('child_added', snap =>{
+            var d = snap.key;
+            console.log(d);
+          });
       });
 
-
-
-
-
+      
 
       var hours = database.ref().child('students/' + user.uid +'/totalHours');
       hours.on('value', snapshot => {
