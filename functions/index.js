@@ -14,8 +14,21 @@ const engines = require('consolidate');
 
 const firebaseApp = firebase.initializeApp(functions.config().firebase);
 
+const app = express();
+app.engine('hbs', engines.handlebars);
+app.set('views','./views');
+app.set('view engine','hbs');
+
+
+
 const database = firebase.database();
 
+
+
+
+
+
+//add user to DB
 exports.createUserAccount = functions.auth.user().onCreate(event => {
     const uid = event.data.uid;
     const email = event.data.email;
