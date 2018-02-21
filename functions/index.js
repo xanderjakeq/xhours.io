@@ -13,6 +13,7 @@ const express = require('express');
 const engines = require('consolidate');
 
 const firebaseApp = firebase.initializeApp(functions.config().firebase);
+const database = firebase.database();
 
 const app = express();
 app.engine('hbs', engines.handlebars);
@@ -21,10 +22,11 @@ app.set('view engine','hbs');
 
 
 
-const database = firebase.database();
 
 
 
+
+exports.app = functions.https.onRequest(app);
 
 
 
