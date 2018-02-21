@@ -152,11 +152,20 @@
 
       submitHoursRequest.addEventListener('click', function(){
         console.log("what is going onn bro");
-        let clientRef = database.ref().child('clients');
-          clientRef.orderByChild('email').equalTo('gov@dc.gov').on('child_added', snap =>{
-            var d = snap.key;
-            console.log(d);
-          });
+        //query database
+        // var clientRef = database.ref().child('clients');
+        //   clientRef.orderByChild('email').equalTo('gov@dc.gov').on('child_added', snap =>{
+        //     var d = snap.key;
+        //     console.log(d);
+        //   });
+      });
+
+      //query database
+      var clientRef = database.ref().child('clients');
+      clientRef.orderByChild('email').equalTo('gov@dc.gov').on('child_added', snap =>{
+        var d = snap.key;
+        console.log("this works");
+        console.log(d);
       });
 
       
