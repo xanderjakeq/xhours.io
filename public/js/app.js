@@ -37,7 +37,7 @@
 
   logOut.addEventListener('click', e =>{
     firebase.auth().signOut();
-    window.location.replace("../index.html");
+    window.location.replace("/");
   });
 
 //end Sign in and out ---------------------------------------------------------------------
@@ -86,7 +86,9 @@
     });
   }
 
-  function request(){
+  function request(path, uid){
+    var method = 'post';
+
     var reqDiv = document.createElement('div');
     var form = document.createElement('form');
     var email = document.createElement('input');
@@ -95,7 +97,13 @@
 
     email.setAttribute('type', 'email');
     hours.setAttribute('type', 'number');
+    email.setAttribute('name', 'email');
+    hours.setAttribute('name', 'hours');
+    email.required = true;
+    hours.required = true;
     submit.setAttribute('type', 'submit');
+    form.setAttribute('method', method);
+    form.setAttribute('action', path + '/' + uid);
     submit.className = 'button-primary';
     submit.id = 'submitHoursRequest';
     submit.innerText = 'Submit';
@@ -108,9 +116,6 @@
     reqDiv.appendChild(form);
     document.body.appendChild(reqDiv);
 
-
-
-
   }
 
 
@@ -118,6 +123,7 @@
   firebase.auth().onAuthStateChanged(user =>{
     if(user){
       const uid = user.uid;
+      
       var studentRef = database.ref().child('students/' + uid);
       studentRef.on('value', snapshot =>{
         var data = snapshot.val();
@@ -141,7 +147,7 @@
       container.appendChild(plusbtn);
       //end adding plusbtn
 
-      request();
+      request('/hoursRequest', uid);
 
       plusbtn.addEventListener('click', e =>{
         document.getElementById('requestForm').style.display = "block";
@@ -161,12 +167,12 @@
       });
 
       //query database
-      var clientRef = database.ref().child('clients');
-      clientRef.orderByChild('email').equalTo('gov@dc.gov').on('child_added', snap =>{
-        var d = snap.key;
-        console.log("this works");
-        console.log(d);
-      });
+      // var clientRef = database.ref().child('clients');
+      // clientRef.orderByChild('email').equalTo('gov@dc.gov').on('child_added', snap =>{
+      //   var d = snap.key;
+      //   console.log("this works");
+      //   console.log(d);
+      // });
 
       
 
