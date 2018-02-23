@@ -30,25 +30,18 @@ app.get('/', (request, response)=>{
 
 app.get('/student', (request, response)=>{
     response.render('student');
-    // var clientRef = database.ref().child('clients');
-    // clientRef.orderByChild('email').equalTo(email).on('child_added', snap =>{
-    //     var d = snap.key;
-    //     console.log(d);
-    //     console.log('ok');
-    // });
 });
 
 app.get('/client', (request, response)=>{
     response.render('client');
 });
 
-app.post('/hoursRequest/:uid', (request, response)=>{
+app.post('/hoursRequest/:uid', (request, response,next)=>{
     var email = request.body.email;
     var hours = request.body.hours;
     var uid = request.params.uid;
-    console.log('hmm');
-    var clientRef = database.ref().child('clients');
 
+    var clientRef = database.ref().child('clients');
     //get the object key of the client with the correct email and push student ID and hours requested
     var clientKey = clientRef.orderByChild('email').equalTo(email).on('child_added', snap =>{
         var key =  snap.key;
@@ -56,9 +49,12 @@ app.post('/hoursRequest/:uid', (request, response)=>{
             studentId: uid,
             hours: hours
         });
-    });
 
-    response.redirect('/student');
+        console.log('success');
+
+        response.redirect('/student');
+    });
+    response.render('error');
 });
 
 
