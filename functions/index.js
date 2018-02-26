@@ -41,11 +41,14 @@ app.post('/hoursRequest/:uid', (request, response,next)=>{
     var hours = request.body.hours;
     var uid = request.params.uid;
 
-    var clientRef = database.ref().child('clients');
+    var exists = false;
+
+    var clientRef = database.ref().child('users');
     //get the object key of the client with the correct email and push student ID and hours requested
     var clientKey = clientRef.orderByChild('email').equalTo(email).on('child_added', snap =>{
         var key =  snap.key;
-        database.ref().child('clients/' + key + '/requests').push({
+        exists = true;
+        database.ref().child('users/' + key + '/requests').push({
             studentId: uid,
             hours: hours
         });
@@ -54,7 +57,10 @@ app.post('/hoursRequest/:uid', (request, response,next)=>{
 
         response.redirect('/student');
     });
-    response.render('error');
+    if(!exists){
+        //TODO: add get path '/error'
+        response.render('error');
+    }
 });
 
 
@@ -73,9 +79,11 @@ exports.createUserAccount = functions.auth.user().onCreate(event => {
     const name = event.data.displayName || email.substring(0,email.indexOf('@'));
     const photoUrl = event.data.photoURL || 'some default link';
 
+    
+
     //check if email contains "@dc.gov" for supervisors
     if( email.indexOf("@dc.gov") > -1 ){
-        const newSupervisorRef = database.ref().child(`/clients/${uid}`);
+        const newSupervisorRef = database.ref().child(`/users/${uid}`);
         return newSupervisorRef.set({
             email: email,
             photoUrl: photoUrl,
@@ -84,7 +92,7 @@ exports.createUserAccount = functions.auth.user().onCreate(event => {
         });
 
     }else{
-        const newUserRef = database.ref().child(`/students/${uid}`);
+        const newUserRef = database.ref().child(`/users/${uid}`);
         return newUserRef.set({
             email: email,
             photoUrl: photoUrl,

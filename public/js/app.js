@@ -42,7 +42,8 @@
 
 //end Sign in and out ---------------------------------------------------------------------
   var database = firebase.database();
-
+  // var currentUser = firebase.auth().currentUser;
+  // var uid = currentUser.uid;
 
 
   function addCard(Post){
@@ -70,6 +71,52 @@
 
   }
 
+  function addRequestdata(Request){
+    var table = document.getElementById('content');
+    var tr = document.createElement('tr');
+    var name = document.createElement('td');
+    var summary = document.createElement('td');
+    var hours = document.createElement('td');
+    var options = document.createElement('td');
+    var ok = document.createElement('a');
+    var no = document.createElement('a');
+
+    ok.className = 'button';
+    no.className = 'button';
+
+    ok.appendChild(document.createTextNode('OK'));
+    no.appendChild(document.createTextNode('NO'));
+    name.innerText = Request.studentID;
+    hours.innerText = Request.hours;
+    
+    options.appendChild(ok);
+    options.appendChild(no);
+    tr.appendChild(name);
+    tr.appendChild(summary);
+    tr.appendChild(hours);
+    tr.appendChild(options);
+
+    table.appendChild(tr);
+    
+
+
+  }
+  //get request posts
+  function getRequests(uid){
+    console.log('getRequests Ran');
+    var requestsRef = database.ref().child('users/'+ uid + '/requests');
+    requestsRef.once('value', snapshot =>{
+        var posts = snapshot.val();
+        console.log(posts);
+        var keys = Object.keys(posts);
+
+        for(var i = 0; i < keys.length; i ++){
+            key = keys[i];
+            //console.log(posts[key].Author);
+            addRequestdata(posts[key]);
+        }
+    });
+  }
   //get opportunity posts
   function getPosts(){
     var postsRef = database.ref().child('Posts');
@@ -123,15 +170,73 @@
   firebase.auth().onAuthStateChanged(user =>{
     if(user){
       const uid = user.uid;
-      
-      var studentRef = database.ref().child('students/' + uid);
-      studentRef.on('value', snapshot =>{
-        var data = snapshot.val();
-        console.log(data.totalHours);
+      const email = user.email;
+      const userRef = database.ref().child('users/' + uid);
+      var userData;
+      userRef.on('value', snapshot =>{
+        userData = snapshot.val();
+        console.log(userData.isSupervisor);
+
+        if(userData.isSupervisor){
+          console.log('logged in as supervisor');
+          var clientRef = database.ref().child('users/' + uid);
+          clientRef.on('value', snapshot =>{
+            var data = snapshot.val();
+            console.log(data.isSupervisor);
+          });
+  
+          //get and append requests
+          getRequests(uid);
+          
+  
+  
+        }else{
+          console.log('logged in as student');
+          
+          //student_specific
+          var studentRef = database.ref().child('users/' + uid);
+          studentRef.on('value', snapshot =>{
+            var data = snapshot.val();
+            console.log(data.isSupervisor);
+            console.log(data.totalHours);
+          });
+          request('/hoursRequest', uid);
+  
+          plusbtn.addEventListener('click', e =>{
+            document.getElementById('requestForm').style.display = "block";
+            document.getElementById('requestFormInput').style.display = "block";
+  
+          });
+  
+  
+          // submitHoursRequest.addEventListener('click', function(){
+          //   console.log("what is going onn bro");
+          //   //query database
+          //   // var clientRef = database.ref().child('clients');
+          //   //   clientRef.orderByChild('email').equalTo('gov@dc.gov').on('child_added', snap =>{
+          //   //     var d = snap.key;
+          //   //     console.log(d);
+          //   //   });
+          // });
+  
+          var hours = database.ref().child('users/' + user.uid +'/totalHours');
+          hours.on('value', snapshot => {
+                  //snapshot is a snapshot of the values of the ref snapshot.val() to access the values
+                  var totalhours = snapshot.val();
+                  console.log( snapshot.val());
+                  document.getElementById("hours").innerText = totalhours;
+                });
+        //remove default card then add Posts
+        var defaultCard = document.getElementById('defaultCard');
+        document.getElementById('postList').removeChild(defaultCard);
+  
+        //add opportunity list cards
+        getPosts();
+  
+  
+      }
+        
       });
-
-
-
       //show the logout btn, hide the login btn and show the hours of current user
       document.getElementById("logOut").style.display= "block";
       document.getElementById("logIn").style.display= "none";
@@ -147,40 +252,8 @@
       container.appendChild(plusbtn);
       //end adding plusbtn
 
-      request('/hoursRequest', uid);
-
-      plusbtn.addEventListener('click', e =>{
-        document.getElementById('requestForm').style.display = "block";
-        document.getElementById('requestFormInput').style.display = "block";
-
-      });
-
-
-      submitHoursRequest.addEventListener('click', function(){
-        console.log("what is going onn bro");
-        //query database
-        // var clientRef = database.ref().child('clients');
-        //   clientRef.orderByChild('email').equalTo('gov@dc.gov').on('child_added', snap =>{
-        //     var d = snap.key;
-        //     console.log(d);
-        //   });
-      });
-
-      var hours = database.ref().child('students/' + user.uid +'/totalHours');
-      hours.on('value', snapshot => {
-              //snapshot is a snapshot of the values of the ref snapshot.val() to access the values
-              var totalhours = snapshot.val();
-              console.log( snapshot.val());
-              document.getElementById("hours").innerText = totalhours;
-            });
-    //remove default card then add Posts
-    var defaultCard = document.getElementById('defaultCard');
-    document.getElementById('postList').removeChild(defaultCard);
-
-    //add opportunity list cards
-    getPosts();
-
-
+      //if(email.indexOf("@dc.gov") > -1){
+      
 
     }else{
       //document.getElementById("hours").style.display= "none";
