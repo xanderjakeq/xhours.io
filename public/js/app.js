@@ -146,14 +146,16 @@ var database = firebase.database();
 
 
         var posts = snapshot.val();
-        console.log(posts);
-        var keys = Object.keys(posts);
+        //console.log(posts);
+          if(posts != null){
+          var keys = Object.keys(posts);
 
-        for(var i = 0; i < keys.length; i ++){
-            key = keys[i];
-            //console.log(posts[key].Author);
-            addRequestdata(posts[key],uid,key);
-        }
+          for(var i = 0; i < keys.length; i ++){
+              key = keys[i];
+              //console.log(posts[key].Author);
+              addRequestdata(posts[key],uid,key);
+          }
+      }
     });
   }
 
@@ -290,9 +292,15 @@ var database = firebase.database();
 
           var container = document.body;
           var plusbtn = document.createElement('button');
+          var viewposts = document.createElement('button');
+
+          viewposts.id = "postsview";
           plusbtn.id = "postbtn";
+          viewposts.className = "button-primary"
           plusbtn.className = "button-primary";
+          viewposts.innerText = "View Posts"
           plusbtn.innerText = "POST";
+          container.appendChild(viewposts);
           container.appendChild(plusbtn);
           console.log("shoot");
 
@@ -353,14 +361,13 @@ var database = firebase.database();
       }
         
       });
+
       //show the logout btn, hide the login btn and show the hours of current user
       document.getElementById("logOut").style.display= "block";
       document.getElementById("logIn").style.display= "none";
       document.getElementById("hours").style.display= "block";
 
      
-
-      //if(email.indexOf("@dc.gov") > -1){
       
 
     }else{

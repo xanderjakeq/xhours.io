@@ -41,6 +41,15 @@ textarea{
   z-index: 2;
 }
 
+#postsview{
+  position: fixed;
+  bottom: -.75%;
+  right: 0;
+
+  margin: 10px;
+  z-index: 2;
+}
+
 #postbtn{
   position: fixed;
   bottom: 5%;
