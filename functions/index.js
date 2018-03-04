@@ -36,10 +36,11 @@ app.get('/client', (request, response)=>{
     response.render('client');
 });
 
-app.post('/hoursRequest/:uid', (request, response,next)=>{
+app.post('/hoursRequest/:uid/:name', (request, response,next)=>{
     var email = request.body.email;
     var hours = request.body.hours;
     var uid = request.params.uid;
+    var name = request.params.name;
 
     var exists = false;
 
@@ -50,17 +51,34 @@ app.post('/hoursRequest/:uid', (request, response,next)=>{
         exists = true;
         database.ref().child('users/' + key + '/requests').push({
             studentId: uid,
-            hours: hours
+            hours: hours,
+            name: name
         });
 
         console.log('success');
 
         response.redirect('/student');
     });
-    if(!exists){
+    if(exists){
         //TODO: add get path '/error'
         response.render('error');
     }
+});
+
+app.post('/post/:uid', (request, response,next)=>{
+    var title = request.body.title;
+    var detail = request.body.detail;
+    var uid = request.params.uid;
+
+    var exists = false;
+
+    var postsRef = database.ref().child('Posts');
+    
+    postsRef.push({
+        title: title,
+        body: detail
+    });
+    response.redirect('/client');
 });
 
 
@@ -105,3 +123,36 @@ exports.createUserAccount = functions.auth.user().onCreate(event => {
 
     }
 });
+
+// exports.updateTotalHours = function(){
+//     firebase.auth().onAuthStateChanged(function(user) {
+//         if (user) {
+//             var uid = user.uid;
+//           // User is signed in.
+//             var userRef = database.ref().child('users/' + uid);
+//             userRef.once('value', snap =>{
+//                 var data = snap.val();
+//                 if(!data.isSupervisor){
+//                     var hoursRef = userRef.child('hours');
+//                     var totalHoursRef = userRef.child('totalHours');
+//                     hoursRef.on('child_added', data =>{
+
+//                         var hours = data.val();
+//                         var keys = Object.keys(hours);
+//                         var total = 0;
+//                         for(var i = 0; i < keys.length; i ++){
+//                             var key = keys[i];
+//                             total += hours[key];
+//                         }
+//                         console.log("hmm" + total);
+//                         totalHours.set(total);
+//                     });
+//                 }
+//             });
+            
+//         } else {
+//           // No user is signed in.
+//         }
+//       });
+      
+// }

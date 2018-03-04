@@ -5,9 +5,32 @@ ul{
 
 .content{
   grid-area: center;
+  margin-top: 15%;
 } 
 
 th, td{
   text-align: center;
   max-width: 300px;
+}
+
+#requestForm{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  /* opacity: .5; */
+  z-index: 1;
+  display: block;
+  text-align: center;
+  display: none;
+}
+#requestFormInput{
+  display: none;
+}
+
+form{
+  position: absolute;
+  top: 50%;
+  transform: translateX(125%); 
 }

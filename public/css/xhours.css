@@ -24,6 +24,12 @@ a{
 
 form{
   z-index: 1;
+  display: inline;
+}
+
+textarea{
+  /* padding: 70px 0; */
+  margin-bottom: -20px;
 }
 
 #plusbtn{
@@ -34,6 +40,16 @@ form{
   margin: 10px;
   z-index: 2;
 }
+
+#postbtn{
+  position: fixed;
+  bottom: 5%;
+  right: 0;
+
+  margin: 10px;
+  z-index: 2;
+}
+
 #logIn{
   display: block;
 }

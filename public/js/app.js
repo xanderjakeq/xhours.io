@@ -39,12 +39,11 @@
     firebase.auth().signOut();
     window.location.replace("/");
   });
-
 //end Sign in and out ---------------------------------------------------------------------
-  var database = firebase.database();
+  
+var database = firebase.database();
   // var currentUser = firebase.auth().currentUser;
   // var uid = currentUser.uid;
-
 
   function addCard(Post){
     var ul = document.getElementById('postList');
@@ -71,8 +70,24 @@
 
   }
 
-  function addRequestdata(Request){
-    var table = document.getElementById('content');
+  //add hours
+  function addHours(approved,uid,hours,supervisorId,key){
+    console.log("approval clicked");
+    if(approved){
+      console.log(key);
+      var studentHoursRef = database.ref().child('users/'+ uid +'/hours');
+      var requestsRef = database.ref().child('users/' + supervisorId + '/requests/' + key );
+      requestsRef.remove();
+      studentHoursRef.push(hours);
+    }else{
+      var requestsRef = database.ref().child('users/' + supervisorId + '/requests/' + key );
+      requestsRef.remove();
+      studentHoursRef.push(hours);
+    }
+  }
+
+  function addRequestdata(Request,uid,key){
+    var table = document.getElementById('container');
     var tr = document.createElement('tr');
     var name = document.createElement('td');
     var summary = document.createElement('td');
@@ -81,12 +96,28 @@
     var ok = document.createElement('a');
     var no = document.createElement('a');
 
+
     ok.className = 'button';
     no.className = 'button';
+    ok.id = 'ok';
+    no.id = 'no';
+    tr.id = Request.studentId;
 
+    ok.addEventListener('click', function(){
+      addHours(true, Request.studentId, Request.hours,uid,key);
+      // var tr = document.getElementById(Request.studentId);
+      // table.removeChild(tr);
+    });
+    no.addEventListener('click', function(){
+      addHours(false, Request.studentId, Request.hours,uid,key);
+      // var tr = document.getElementById(Request.studentId);
+      // table.removeChild(tr);
+    });
+
+    tr.className = 'requestrow';
     ok.appendChild(document.createTextNode('OK'));
     no.appendChild(document.createTextNode('NO'));
-    name.innerText = Request.studentID;
+    name.innerText = Request.name;
     hours.innerText = Request.hours;
     
     options.appendChild(ok);
@@ -97,15 +128,23 @@
     tr.appendChild(options);
 
     table.appendChild(tr);
-    
-
-
   }
+
+  
+
   //get request posts
   function getRequests(uid){
     console.log('getRequests Ran');
     var requestsRef = database.ref().child('users/'+ uid + '/requests');
-    requestsRef.once('value', snapshot =>{
+    requestsRef.on('value', snapshot =>{
+        var container = document.getElementById('container');
+        
+
+        while (container.hasChildNodes()) {
+          container.removeChild(container.lastChild);
+        }
+
+
         var posts = snapshot.val();
         console.log(posts);
         var keys = Object.keys(posts);
@@ -113,14 +152,41 @@
         for(var i = 0; i < keys.length; i ++){
             key = keys[i];
             //console.log(posts[key].Author);
-            addRequestdata(posts[key]);
+            addRequestdata(posts[key],uid,key);
         }
     });
   }
+
+  function updateTotalHours(uid){
+    var hoursRef = database.ref().child('users/' + uid + '/hours');
+    var totalRef = database.ref().child('users/' + uid +'/totalHours');
+    hoursRef.on('value', snapshot =>{
+      //var container = document.getElementById('postList');
+
+        var hours = snapshot.val();
+        var keys = Object.keys(hours);
+        var total = 0;
+        for(var i = 0; i < keys.length; i ++){
+            key = keys[i];
+            //console.log(posts[key].Author);
+            total += parseInt(hours[key]);
+        }
+        totalRef.set(total);
+    });
+  }
+  
+
   //get opportunity posts
   function getPosts(){
     var postsRef = database.ref().child('Posts');
-    postsRef.once('value', snapshot =>{
+    postsRef.on('value', snapshot =>{
+      var container = document.getElementById('postList');
+        
+
+      while (container.hasChildNodes()) {
+        container.removeChild(container.lastChild);
+      }
+
         var posts = snapshot.val();
         console.log(posts);
         var keys = Object.keys(posts);
@@ -133,7 +199,7 @@
     });
   }
 
-  function request(path, uid){
+  function request(path, uid, name){
     var method = 'post';
 
     var reqDiv = document.createElement('div');
@@ -150,7 +216,7 @@
     hours.required = true;
     submit.setAttribute('type', 'submit');
     form.setAttribute('method', method);
-    form.setAttribute('action', path + '/' + uid);
+    form.setAttribute('action', path + '/' + uid +'/' + name);
     submit.className = 'button-primary';
     submit.id = 'submitHoursRequest';
     submit.innerText = 'Submit';
@@ -162,15 +228,49 @@
     form.appendChild(submit);
     reqDiv.appendChild(form);
     document.body.appendChild(reqDiv);
-
   }
 
-  
+  //write post form
+  function post(path, uid){
+    var method = 'post';
+
+    var reqDiv = document.createElement('div');
+    var form = document.createElement('form');
+    var title = document.createElement('input');
+    var detail = document.createElement('textarea');
+    var submit = document.createElement('button');
+
+    title.setAttribute('type', 'text');
+    detail.setAttribute('type', 'text');
+    title.setAttribute('name', 'title');
+    detail.setAttribute('name', 'detail');
+    detail.setAttribute('placeholder', 'Detail');
+    title.setAttribute('placeholder', 'Title');
+   
+    title.required = true;
+    detail.required = true;
+    submit.setAttribute('type', 'submit');
+    form.setAttribute('method', method);
+    form.setAttribute('action', path + '/' + uid);
+    submit.className = 'button-primary';
+    submit.id = 'submitHoursRequest';
+    submit.innerText = 'Submit';
+    reqDiv.id = 'requestForm';
+    form.id = 'requestFormInput';
+
+    form.appendChild(title);
+    form.appendChild(detail);
+    form.appendChild(submit);
+
+    reqDiv.appendChild(form);
+    document.body.appendChild(reqDiv);
+  }
 
   firebase.auth().onAuthStateChanged(user =>{
     if(user){
       const uid = user.uid;
       const email = user.email;
+      const name = user.displayName;
       const userRef = database.ref().child('users/' + uid);
       var userData;
       userRef.on('value', snapshot =>{
@@ -187,37 +287,54 @@
   
           //get and append requests
           getRequests(uid);
+
+          var container = document.body;
+          var plusbtn = document.createElement('button');
+          plusbtn.id = "postbtn";
+          plusbtn.className = "button-primary";
+          plusbtn.innerText = "POST";
+          container.appendChild(plusbtn);
+          console.log("shoot");
+
+          post('/post', uid);
           
-  
-  
+          postbtn.addEventListener('click', e =>{
+            document.getElementById('requestForm').style.display = "block";
+            document.getElementById('requestFormInput').style.display = "block";
+            console.log("post clicked");
+          });
+
         }else{
           console.log('logged in as student');
+
+          //update total Hours
+          updateTotalHours(uid);
           
           //student_specific
           var studentRef = database.ref().child('users/' + uid);
+          var postsRef = database.ref().child('Posts'); 
           studentRef.on('value', snapshot =>{
             var data = snapshot.val();
             console.log(data.isSupervisor);
             console.log(data.totalHours);
           });
-          request('/hoursRequest', uid);
+          request('/hoursRequest', uid, name);
+
+          //create the plus button
+          //TODO: move this to somewhere else
+          var container = document.getElementById('container');
+          var plusbtn = document.createElement('button');
+          plusbtn.id = "plusbtn";
+          plusbtn.className = "button-primary";
+          plusbtn.innerText = "Request";
+          container.appendChild(plusbtn);
+          //end adding plusbtn
   
           plusbtn.addEventListener('click', e =>{
             document.getElementById('requestForm').style.display = "block";
             document.getElementById('requestFormInput').style.display = "block";
   
           });
-  
-  
-          // submitHoursRequest.addEventListener('click', function(){
-          //   console.log("what is going onn bro");
-          //   //query database
-          //   // var clientRef = database.ref().child('clients');
-          //   //   clientRef.orderByChild('email').equalTo('gov@dc.gov').on('child_added', snap =>{
-          //   //     var d = snap.key;
-          //   //     console.log(d);
-          //   //   });
-          // });
   
           var hours = database.ref().child('users/' + user.uid +'/totalHours');
           hours.on('value', snapshot => {
@@ -231,9 +348,8 @@
         document.getElementById('postList').removeChild(defaultCard);
   
         //add opportunity list cards
-        getPosts();
-  
-  
+        // postsRef.on('child_added', )
+        getPosts();          
       }
         
       });
@@ -242,15 +358,7 @@
       document.getElementById("logIn").style.display= "none";
       document.getElementById("hours").style.display= "block";
 
-      //create the plus button
-      //TODO: move this to somewhere else
-      var container = document.getElementById('container');
-      var plusbtn = document.createElement('button');
-      plusbtn.id = "plusbtn";
-      plusbtn.className = "button-primary";
-      plusbtn.innerText = "Request";
-      container.appendChild(plusbtn);
-      //end adding plusbtn
+     
 
       //if(email.indexOf("@dc.gov") > -1){
       
