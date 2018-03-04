@@ -76,7 +76,8 @@ app.post('/post/:uid', (request, response,next)=>{
     
     postsRef.push({
         title: title,
-        body: detail
+        body: detail,
+        author: uid
     });
     response.redirect('/client');
 });

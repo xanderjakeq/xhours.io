@@ -86,6 +86,8 @@ var database = firebase.database();
     }
   }
 
+
+  //add request from students to supervisor dashboard
   function addRequestdata(Request,uid,key){
     var table = document.getElementById('container');
     var tr = document.createElement('tr');
@@ -131,8 +133,7 @@ var database = firebase.database();
   }
 
   
-
-  //get request posts
+  //get request from students
   function getRequests(uid){
     console.log('getRequests Ran');
     var requestsRef = database.ref().child('users/'+ uid + '/requests');
@@ -178,7 +179,7 @@ var database = firebase.database();
   }
   
 
-  //get opportunity posts
+  //get opportunity posts by supervisors
   function getPosts(){
     var postsRef = database.ref().child('Posts');
     postsRef.on('value', snapshot =>{
@@ -201,6 +202,7 @@ var database = firebase.database();
     });
   }
 
+  //send hours request to supervisor
   function request(path, uid, name){
     var method = 'post';
 
@@ -232,6 +234,10 @@ var database = firebase.database();
     document.body.appendChild(reqDiv);
   }
 
+  //get posts written by current signedin supervisor
+  function getAuthoredPosts(uid){
+    
+  }
   //write post form
   function post(path, uid){
     var method = 'post';
@@ -253,7 +259,7 @@ var database = firebase.database();
     detail.required = true;
     submit.setAttribute('type', 'submit');
     form.setAttribute('method', method);
-    form.setAttribute('action', path + '/' + uid);
+    form.setAttribute('action', path + '/' + uid );
     submit.className = 'button-primary';
     submit.id = 'submitHoursRequest';
     submit.innerText = 'Submit';
