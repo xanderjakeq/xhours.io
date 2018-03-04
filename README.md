@@ -3,6 +3,8 @@
 
 A tool for recording community service hours digitally.
 
+See it in action: https://xhours.io/
+
 ### Summary
 
 xhours is a high school engineering project. 
