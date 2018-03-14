@@ -80,8 +80,8 @@ textarea{
   text-align: center;
   margin: 10px;
   margin-left: 50px;
-  max-width: 1.5%;
-  max-height: 1.5%;
+  max-width: 40px;
+  max-height: 40px;
 }
 
 #logOut{
