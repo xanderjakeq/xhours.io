@@ -298,7 +298,7 @@ var database = firebase.database();
 
           post('/post', uid);
           
-          postbtn.addEventListener('click', e =>{
+          plusbtn.addEventListener('click', e =>{
             document.getElementById('requestForm').style.display = "block";
             document.getElementById('requestFormInput').style.display = "block";
             console.log("post clicked");
