@@ -251,6 +251,8 @@ var database = firebase.database();
     detail.setAttribute('type', 'text');
     title.setAttribute('name', 'title');
     detail.setAttribute('name', 'detail');
+    title.setAttribute('class', 'formElement');
+    detail.setAttribute('class', 'formElement');
     detail.setAttribute('placeholder', 'Detail');
     title.setAttribute('placeholder', 'Title');
    
@@ -260,6 +262,7 @@ var database = firebase.database();
     form.setAttribute('method', method);
     form.setAttribute('action', path + '/' + uid);
     submit.className = 'button-primary';
+    submit.classList.add("formElement");
     submit.id = 'submitHoursRequest';
     submit.innerText = 'Submit';
     reqDiv.id = 'requestForm';
