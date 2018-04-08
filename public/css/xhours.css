@@ -129,6 +129,7 @@ textarea{
   height: auto;
   width: auto;
   margin: 5%;
+  margin-top: 20%;
   display: grid;
   overflow: hidden;
   grid-template-rows: repeat(2, 10%);
@@ -137,4 +138,10 @@ textarea{
     "description";
   box-shadow: 2px 2px 5px 1px grey;
   padding: 1%;
+}
+
+/* elements inside a form */
+.formElement{
+  display: block;
+  margin: 1em auto;
 }

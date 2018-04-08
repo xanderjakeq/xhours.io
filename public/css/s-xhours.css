@@ -1,0 +1,141 @@
+html{
+    height: 100%;
+    background-color: white;
+  }
+  
+  body{
+    height: 100%;
+    margin: 0;
+  }
+  
+  
+  nav{
+    background-color: black;
+    display: inline-block;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+  }
+  
+  a{
+    text-decoration: none;
+  }
+  
+  form{
+    z-index: 1;
+    display: inline;
+  }
+  
+  textarea{
+    /* padding: 70px 0; */
+    margin-bottom: -20px;
+  }
+  
+  #plusbtn{
+    position: fixed;
+    bottom: 5%;
+    right: 0;
+  
+    margin: 10px;
+    z-index: 2;
+  }
+  
+  #postbtn{
+    position: fixed;
+    bottom: 5%;
+    right: 0;
+  
+    margin: 10px;
+    z-index: 2;
+  }
+  
+  #logIn{
+    display: block;
+  }
+  
+  #hours{
+    margin-right: 1%;
+    float: left;
+    cursor: default;
+    display: block;
+    color: white;
+    margin: 10px;
+    max-width: 100%;
+    max-height: 100%;
+  }
+  
+  #navlogo{
+    float: left;
+    display: block;
+    text-align: center;
+    margin: 10px;
+    margin-left: 50px;
+    max-width: 4.5%;
+    max-height: 1.5%;
+  }
+  
+  #logOut{
+    background-color: red;
+    color: white;
+    border-color: black;
+    display: none;
+  }
+  
+  
+  .button{
+    background-color: black;
+    color: white;
+    margin: auto;
+  }
+  
+  .navBtn{
+    float: right;
+    display: block;
+    color: white;
+    /* text-align: center; */
+    margin: 10px;
+    max-width: 100%;
+    max-height: 100%;
+    cursor: pointer;
+  }
+  
+  .container{
+    width: 100%;
+    height: 100%;
+    display: block; 
+  }
+
+  .card{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas:
+      "title title title title"
+      "content content content content"
+      "xtra xtra xtra xtra";
+  }
+  
+  .listCard{
+    height: auto;
+    width: auto;
+    margin: 5%;
+    margin-top: 25%;
+    display: grid;
+    overflow: hidden;
+    grid-template-rows: repeat(2, 10%);
+    grid-template-areas:
+      "title"
+      "description";
+    box-shadow: 2px 2px 5px 1px grey;
+    padding: 1%;
+  }
+  
+  /* elements inside a form */
+  .formElement{
+    display: block;
+    margin: 1em auto;
+  }
+  

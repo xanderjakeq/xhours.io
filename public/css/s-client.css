@@ -5,9 +5,12 @@ ul{
 
 .content{
   grid-area: center;
-  margin-top: 15%;
+  margin-top: 30%;
 } 
 
+table{
+  width: 100%;
+}
 th, td{
   text-align: center;
   max-width: 300px;
@@ -25,9 +28,9 @@ th, td{
   text-align: center;
   display: none;
 }
-#requestFormInput{
+/* #requestFormInput{
   display: none;
-}
+} */
 
 form{
   position: absolute;

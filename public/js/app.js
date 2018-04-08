@@ -202,6 +202,8 @@ var database = firebase.database();
   function request(path, uid, name){
     var method = 'post';
 
+    // document.getElementById("plusbtn").style.visibility = "hidden";
+
     var reqDiv = document.createElement('div');
     var form = document.createElement('form');
     var email = document.createElement('input');
@@ -212,12 +214,17 @@ var database = firebase.database();
     hours.setAttribute('type', 'number');
     email.setAttribute('name', 'email');
     hours.setAttribute('name', 'hours');
+    email.setAttribute('placeholder', 'Supervisor Email');
+    hours.setAttribute('placeholder', 'Number of Hours');
+    email.setAttribute('class', 'formElement');
+    hours.setAttribute('class', 'formElement');
     email.required = true;
     hours.required = true;
     submit.setAttribute('type', 'submit');
     form.setAttribute('method', method);
     form.setAttribute('action', path + '/' + uid +'/' + name);
     submit.className = 'button-primary';
+    submit.classList.add("formElement");
     submit.id = 'submitHoursRequest';
     submit.innerText = 'Submit';
     reqDiv.id = 'requestForm';
@@ -299,6 +306,7 @@ var database = firebase.database();
           post('/post', uid);
           
           plusbtn.addEventListener('click', e =>{
+            document.getElementById("postbtn").style.visibility = "hidden";
             document.getElementById('requestForm').style.display = "block";
             document.getElementById('requestFormInput').style.display = "block";
             console.log("post clicked");
@@ -331,6 +339,7 @@ var database = firebase.database();
           //end adding plusbtn
   
           plusbtn.addEventListener('click', e =>{
+            document.getElementById("plusbtn").style.visibility = "hidden";
             document.getElementById('requestForm').style.display = "block";
             document.getElementById('requestFormInput').style.display = "block";
   
