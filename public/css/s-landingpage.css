@@ -52,7 +52,7 @@ body{
   grid-area: mid;
 }
 
-#about h1{
+/* #about h1{
   grid-area: title;
   grid-row-start: 2;
   align-self: start;
@@ -68,7 +68,7 @@ body{
   grid-area: xtra;
   align-self: center;
   text-align: center;
-}
+} */
 
 /* bio section */
 #bio{

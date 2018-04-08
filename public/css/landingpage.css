@@ -29,16 +29,18 @@
 
 #about h1{
   grid-area: title;
-  grid-row-start: 2;
-  align-self:flex-start;
+  align-self:flex-end;
 }
 
 #about p{
   grid-area: content;
-  align-self: center;
 }
 
 #about div{
+  grid-area: content;
+}
+
+#about .extra{
   grid-area: xtra;
   align-self: center;
   text-align: center;
