@@ -86,6 +86,7 @@ var database = firebase.database();
     }
   }
 
+  //add requests to table on client dashboard
   function addRequestdata(Request,uid,key){
     var table = document.getElementById('container');
     var tr = document.createElement('tr');
@@ -119,6 +120,7 @@ var database = firebase.database();
     no.appendChild(document.createTextNode('NO'));
     name.innerText = Request.name;
     hours.innerText = Request.hours;
+    summary.innerText = Request.detail;
     
     options.appendChild(ok);
     options.appendChild(no);
@@ -139,7 +141,7 @@ var database = firebase.database();
     requestsRef.on('value', snapshot =>{
         var container = document.getElementById('container');
         
-
+      //i forgot what this loop does
         while (container.hasChildNodes()) {
           container.removeChild(container.lastChild);
         }
@@ -208,18 +210,23 @@ var database = firebase.database();
     var form = document.createElement('form');
     var email = document.createElement('input');
     var hours = document.createElement('input');
+    var detail = document.createElement('textarea');
     var submit = document.createElement('button');
 
     email.setAttribute('type', 'email');
     hours.setAttribute('type', 'number');
     email.setAttribute('name', 'email');
     hours.setAttribute('name', 'hours');
+    detail.setAttribute('name', 'detail');
     email.setAttribute('placeholder', 'Supervisor Email');
     hours.setAttribute('placeholder', 'Number of Hours');
+    detail.setAttribute('placeholder', 'Short Detail');
+    detail.setAttribute('class', 'formElement');
     email.setAttribute('class', 'formElement');
     hours.setAttribute('class', 'formElement');
     email.required = true;
     hours.required = true;
+    detail.required = true;
     submit.setAttribute('type', 'submit');
     form.setAttribute('method', method);
     form.setAttribute('action', path + '/' + uid +'/' + name);
@@ -232,6 +239,7 @@ var database = firebase.database();
 
     form.appendChild(email);
     form.appendChild(hours);
+    form.appendChild(detail);
     form.appendChild(submit);
     reqDiv.appendChild(form);
     document.body.appendChild(reqDiv);

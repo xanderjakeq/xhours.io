@@ -29,7 +29,8 @@ html{
   
   textarea{
     /* padding: 70px 0; */
-    margin-bottom: -20px;
+    width: 65%;
+    height: 20%;
   }
   
   #plusbtn{

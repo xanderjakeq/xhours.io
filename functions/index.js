@@ -39,6 +39,8 @@ app.get('/client', (request, response)=>{
 app.post('/hoursRequest/:uid/:name', (request, response,next)=>{
     var email = request.body.email;
     var hours = request.body.hours;
+    var detail = request.body.detail;
+
     var uid = request.params.uid;
     var name = request.params.name;
 
@@ -52,7 +54,8 @@ app.post('/hoursRequest/:uid/:name', (request, response,next)=>{
         database.ref().child('users/' + key + '/requests').push({
             studentId: uid,
             hours: hours,
-            name: name
+            name: name,
+            detail: detail
         });
 
         console.log('success');

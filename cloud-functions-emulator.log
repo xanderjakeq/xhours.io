@@ -405,3 +405,108 @@ Execution took 3 ms, user function completed successfully
 2018-04-09T04:38:29.096Z - info: Execution took 3 ms, user function completed successfully
 2018-04-09T04:39:13.766Z - info: User function triggered, starting execution
 2018-04-09T04:39:13.769Z - info: Execution took 2 ms, user function completed successfully
+2018-04-11T06:19:25.733Z - info: User function triggered, starting execution
+2018-04-11T06:19:26.925Z - info: Execution took 1193 ms, user function completed successfully
+2018-04-11T06:19:28.399Z - info: User function triggered, starting execution
+2018-04-11T06:19:28.436Z - info: Execution took 36 ms, user function completed successfully
+2018-04-11T06:19:28.787Z - info: User function triggered, starting execution
+2018-04-11T06:19:28.806Z - info: Execution took 6 ms, user function completed successfully
+User function triggered, starting execution
+Execution took 0 ms, user function completed successfully
+2018-04-11T06:19:49.528Z - info: User function triggered, starting execution
+2018-04-11T06:19:49.549Z - info: Execution took 11 ms, user function completed successfully
+2018-04-11T06:21:08.681Z - info: User function triggered, starting execution
+2018-04-11T06:21:08.688Z - info: Execution took 5 ms, user function completed successfully
+2018-04-11T06:24:20.469Z - info: Worker for app closed due to file changes.
+2018-04-11T06:26:04.617Z - info: User function triggered, starting execution
+2018-04-11T06:26:04.729Z - info: Execution took 114 ms, user function completed successfully
+2018-04-11T06:26:20.904Z - info: User function triggered, starting execution
+2018-04-11T06:26:20.978Z - info: success
+2018-04-11T06:26:21.068Z - error: FIREBASE WARNING: Using an unspecified index. Your data will be downloaded and filtered on the client. Consider adding ".indexOn": "email" at /users to your security rules for better performance. 
+2018-04-11T06:26:21.077Z - info: Execution took 169 ms, user function completed successfully
+2018-04-11T06:26:21.201Z - info: User function triggered, starting execution
+2018-04-11T06:26:21.204Z - info: Execution took 6 ms, user function completed successfully
+2018-04-11T06:33:49.945Z - info: User function triggered, starting execution
+2018-04-11T06:33:49.962Z - info: Execution took 19 ms, user function completed successfully
+2018-04-11T06:33:51.339Z - info: User function triggered, starting execution
+2018-04-11T06:33:51.344Z - info: Execution took 2 ms, user function completed successfully
+2018-04-11T06:34:09.413Z - info: User function triggered, starting execution
+Execution took 2 ms, user function completed successfully
+2018-04-11T06:34:11.331Z - info: User function triggered, starting execution
+2018-04-11T06:34:11.334Z - info: Execution took 2 ms, user function completed successfully
+2018-04-11T06:34:50.050Z - info: User function triggered, starting execution
+2018-04-11T06:34:50.052Z - info: success
+2018-04-11T06:34:50.053Z - info: Execution took 2 ms, user function completed successfully
+2018-04-11T06:34:50.056Z - error: Error: Can't set headers after they are sent.
+    at validateHeader (_http_outgoing.js:504:11)
+    at ServerResponse.setHeader (_http_outgoing.js:511:3)
+    at ServerResponse.header (C:\nodejsProjects\xHours\Code\functions\node_modules\express\lib\response.js:767:10)
+    at ServerResponse.send (C:\nodejsProjects\xHours\Code\functions\node_modules\express\lib\response.js:170:12)
+    at done (C:\nodejsProjects\xHours\Code\functions\node_modules\express\lib\response.js:1004:10)
+    at C:\nodejsProjects\xHours\Code\functions\node_modules\consolidate\lib\consolidate.js:883:7
+    at C:\nodejsProjects\xHours\Code\functions\node_modules\consolidate\lib\consolidate.js:162:5
+    at Promise._execute (C:\nodejsProjects\xHours\Code\functions\node_modules\bluebird\js\release\debuggability.js:303:9)
+    at Promise._resolveFromExecutor (C:\nodejsProjects\xHours\Code\functions\node_modules\bluebird\js\release\promise.js:483:18)
+    at new Promise (C:\nodejsProjects\xHours\Code\functions\node_modules\bluebird\js\release\promise.js:79:10)
+    at promisify (C:\nodejsProjects\xHours\Code\functions\node_modules\consolidate\lib\consolidate.js:155:10)
+    at Function.exports.handlebars.render (C:\nodejsProjects\xHours\Code\functions\node_modules\consolidate\lib\consolidate.js:873:10)
+    at C:\nodejsProjects\xHours\Code\functions\node_modules\consolidate\lib\consolidate.js:183:27
+    at C:\nodejsProjects\xHours\Code\functions\node_modules\consolidate\lib\consolidate.js:101:5
+    at tryToString (fs.js:512:3)
+    at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:500:12)
+2018-04-11T06:34:50.085Z - info: User function triggered, starting execution
+Execution took 5 ms, user function completed successfully
+2018-04-11T06:34:52.152Z - info: User function triggered, starting execution
+2018-04-11T06:34:52.154Z - info: Execution took 2 ms, user function completed successfully
+2018-04-11T06:34:53.125Z - info: User function triggered, starting execution
+2018-04-11T06:34:53.127Z - info: Execution took 1 ms, user function completed successfully
+2018-04-11T06:35:00.076Z - info: User function triggered, starting execution
+2018-04-11T06:35:00.086Z - info: Execution took 5 ms, user function completed successfully
+2018-04-11T06:35:01.486Z - info: User function triggered, starting execution
+2018-04-11T06:35:01.489Z - info: Execution took 2 ms, user function completed successfully
+2018-04-11T06:41:50.842Z - info: User function triggered, starting execution
+2018-04-11T06:41:50.848Z - info: Execution took 3 ms, user function completed successfully
+2018-04-11T06:41:52.141Z - info: User function triggered, starting execution
+2018-04-11T06:41:52.165Z - info: Execution took 21 ms, user function completed successfully
+2018-04-11T06:41:53.554Z - info: User function triggered, starting execution
+2018-04-11T06:41:53.561Z - info: Execution took 6 ms, user function completed successfully
+2018-04-11T06:42:04.480Z - info: User function triggered, starting execution
+2018-04-11T06:42:04.483Z - info: Execution took 3 ms, user function completed successfully
+2018-04-11T06:42:05.770Z - info: User function triggered, starting execution
+2018-04-11T06:42:05.781Z - info: Execution took 7 ms, user function completed successfully
+2018-04-11T06:42:18.592Z - info: User function triggered, starting execution
+2018-04-11T06:42:18.595Z - info: Execution took 2 ms, user function completed successfully
+2018-04-11T06:44:38.672Z - info: User function triggered, starting execution
+2018-04-11T06:44:38.675Z - info: Execution took 2 ms, user function completed successfully
+2018-04-11T06:45:00.171Z - info: User function triggered, starting execution
+2018-04-11T06:45:00.174Z - info: Execution took 2 ms, user function completed successfully
+2018-04-11T06:45:40.488Z - info: User function triggered, starting execution
+2018-04-11T06:45:40.490Z - info: Execution took 2 ms, user function completed successfully
+2018-04-11T06:46:44.613Z - info: User function triggered, starting execution
+2018-04-11T06:46:44.615Z - info: Execution took 3 ms, user function completed successfully
+2018-04-11T06:47:28.323Z - info: User function triggered, starting execution
+2018-04-11T06:47:28.328Z - info: Execution took 4 ms, user function completed successfully
+2018-04-11T06:48:14.124Z - info: User function triggered, starting execution
+2018-04-11T06:48:14.129Z - info: Execution took 3 ms, user function completed successfully
+2018-04-11T06:48:37.010Z - info: User function triggered, starting execution
+2018-04-11T06:48:37.014Z - info: Execution took 3 ms, user function completed successfully
+2018-04-11T06:49:57.308Z - info: User function triggered, starting execution
+2018-04-11T06:49:57.311Z - info: Execution took 3 ms, user function completed successfully
+2018-04-11T06:50:34.022Z - info: User function triggered, starting execution
+2018-04-11T06:50:34.025Z - info: Execution took 3 ms, user function completed successfully
+2018-04-11T06:51:21.958Z - info: User function triggered, starting execution
+2018-04-11T06:51:21.963Z - info: Execution took 4 ms, user function completed successfully
+2018-04-11T06:54:02.932Z - info: User function triggered, starting execution
+2018-04-11T06:54:02.935Z - info: Execution took 2 ms, user function completed successfully
+2018-04-11T06:54:37.986Z - info: User function triggered, starting execution
+2018-04-11T06:54:37.991Z - info: Execution took 3 ms, user function completed successfully
+2018-04-11T06:57:59.900Z - info: User function triggered, starting execution
+2018-04-11T06:57:59.904Z - info: Execution took 3 ms, user function completed successfully
+2018-04-11T06:59:22.263Z - info: User function triggered, starting execution
+2018-04-11T06:59:22.266Z - info: Execution took 2 ms, user function completed successfully
+2018-04-11T06:59:27.995Z - info: User function triggered, starting execution
+2018-04-11T06:59:27.998Z - info: Execution took 2 ms, user function completed successfully
+2018-04-11T06:59:30.501Z - info: User function triggered, starting execution
+2018-04-11T06:59:30.503Z - info: Execution took 2 ms, user function completed successfully
+2018-04-11T06:59:42.755Z - info: User function triggered, starting execution
+2018-04-11T06:59:42.757Z - info: Execution took 2 ms, user function completed successfully
